@@ -14,18 +14,18 @@ Usage:
 
 def pdf_view(filename):
     """Return a Scrollarea showing the first page of the specified PDF file."""
-    
+
     label = QtGui.QLabel()
-    
+
     doc = popplerqt5.Poppler.Document.load(filename)
     doc.setRenderHint(popplerqt5.Poppler.Document.Antialiasing)
     doc.setRenderHint(popplerqt5.Poppler.Document.TextAntialiasing)
-    
+
     page = doc.page(0)
     image = page.renderToImage()
-    
+
     label.setPixmap(QtGui.QPixmap.fromImage(image))
-    
+
     area = QtGui.QScrollArea()
     area.setWidget(label)
     area.setWindowTitle(filename)
@@ -38,7 +38,7 @@ def main():
     if len(argv) < 2:
         sys.stderr.write(usage)
         sys.exit(2)
-    
+
     filename = argv[-1]
     view = pdf_view(filename)
     view.show()
