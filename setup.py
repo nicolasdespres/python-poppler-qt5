@@ -118,6 +118,9 @@ pkg_config('poppler-qt5', ext_args)
 
 if 'libraries' not in ext_args:
     ext_args['libraries'] = ['poppler-qt5']
+ext_args.setdefault('extra_compile_args', [])
+if "-std=c++11" not in ext_args['extra_compile_args']:
+   ext_args['extra_compile_args'].append("-std=c++11")
 
 # hack to provide our options to sip on its invocation:
 build_ext_base = sipdistutils.build_ext
