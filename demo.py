@@ -1,5 +1,8 @@
 import sys
-from PyQt5 import QtGui
+from PyQt5.QtWidgets import QApplication
+from PyQt5.QtWidgets import QLabel
+from PyQt5.QtWidgets import QScrollArea
+from PyQt5.QtGui import QPixmap
 import popplerqt5
 
 usage = """
@@ -15,7 +18,7 @@ Usage:
 def pdf_view(filename):
     """Return a Scrollarea showing the first page of the specified PDF file."""
 
-    label = QtGui.QLabel()
+    label = QLabel()
 
     doc = popplerqt5.Poppler.Document.load(filename)
     doc.setRenderHint(popplerqt5.Poppler.Document.Antialiasing)
@@ -24,17 +27,17 @@ def pdf_view(filename):
     page = doc.page(0)
     image = page.renderToImage()
 
-    label.setPixmap(QtGui.QPixmap.fromImage(image))
+    label.setPixmap(QPixmap.fromImage(image))
 
-    area = QtGui.QScrollArea()
+    area = QScrollArea()
     area.setWidget(label)
     area.setWindowTitle(filename)
     return area
 
 
 def main():
-    app = QtGui.QApplication(sys.argv)
-    argv = QtGui.QApplication.arguments()
+    app = QApplication(sys.argv)
+    argv = QApplication.arguments()
     if len(argv) < 2:
         sys.stderr.write(usage)
         sys.exit(2)
